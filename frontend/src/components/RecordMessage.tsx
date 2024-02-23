@@ -19,7 +19,7 @@ const RecordMessage = ({ handleStop }: Props) => {
           >
             <RecordIcon
               classText={
-                status == "recording"
+                status === "recording"
                   ? "animate-pulse text-red-500"
                   : "text-sky-500"
               }

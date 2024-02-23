@@ -1,0 +1,30 @@
+# Use the official Python image as a base
+FROM python:3.10-slim
+
+# Set environment variables
+ARG OPEN_AI_KEY
+ARG ELEVEN_LABS_API_KEY
+ENV OPEN_AI_KEY=$OPEN_AI_KEY
+ENV ELEVEN_LABS_API_KEY=$ELEVEN_LABS_API_KEY
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set environment variables for the application to use during runtime
+ENV MY_CUSTOM_ENV_VAR "value"
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the dependencies file to the working directory
+COPY ./app/requirements.txt .
+
+RUN pip install --upgrade pip
+# Install dependencies
+RUN pip install openai python-decouple fastapi "uvicorn[standard]" python-multipart
+
+# Copy the rest of the application code to the working directory
+COPY ./app .
+
+# Command to run the application
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
