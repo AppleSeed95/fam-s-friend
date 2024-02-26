@@ -136,3 +136,14 @@ You can check your live server is working by going to:
 ```plain
 http://localhost:4173/health
 ```
+
+**Running**
+**1. Frontend**
+- docker build -t chatbot's frontend .
+- docker run -p 3000:3000 my-vite-app
+
+  **2. Backend**
+  - docker build --build-arg OPEN_AI_KEY=$(grep OPEN_AI_KEY .env | cut -d '=' -f2) \
+             --build-arg ELEVEN_LABS_API_KEY=$(grep ELEVEN_LABS_API_KEY .env | cut -d '=' -f2) \
+             -t chatbot's backend .
+
