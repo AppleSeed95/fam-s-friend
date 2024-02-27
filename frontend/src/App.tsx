@@ -13,6 +13,7 @@ function App() {
     return window.URL.createObjectURL(blob);
   }
 
+
   const handleStop = async (blobUrl: string) => {
     setIsLoading(true);
 
@@ -30,7 +31,7 @@ function App() {
 
         // send form data to api endpoint
         await axios
-          .post("https://chatbot-backend-nine.vercel.app:8000/post-audio", formData, {
+          .post("http://localhost:8000/post-audio", formData, {
             headers: {
               "Content-Type": "audio/mpeg",
             },
