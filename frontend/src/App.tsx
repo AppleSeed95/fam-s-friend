@@ -65,50 +65,68 @@ function App() {
 
       <div className="flex flex-col justify-between h-full overflow-y-scroll pb-96">
         {/* Conversation */}
-        <div className="mt-5 px-5">
-          {messages?.map((audio, index) => {
-            return (
-              <div
-                key={index + audio.sender}
-                className={
-                  "flex flex-col " +
-                  (audio.sender === "fam" && "flex items-end")
-                }
-              >
-                {/* Sender */}
-                <div className="mt-4 ">
-                  <p
+        <div className="px-5 flex">
+          <div className=" flex justify-center items-center w-[25%]">
+            <img className="w-[500px] fixed top-[300px]" src="./images/bot1.png" alt="Description" />
+          </div>
+          <div className="mx-auto w-[50%]">
+
+            <img src="https://firebasestorage.googleapis.com/v0/b/ideta-prod.appspot.com/o/bots%2F-NSFLOC9N5JEtZItZD7i%2Fmedia%2Fimages%2F-GIF-Nuki-accueil-raccourci.gif-1681395461872?alt=media&token=69cf98b3-63e9-4e23-b96d-9c77ed6991b7" alt="im" className="text-center flex items-center mx-auto w-[350px]" />
+
+            {
+              messages.length === 0 && !isLoading && (
+                <div className="text-center font-light italic mt-10">
+                  Send Fam a message...
+                </div>
+              )
+            }
+
+            {
+              isLoading && (
+                <div className="text-center font-light italic mt-10 animate-pulse">
+                  Wait a few seconds...
+                </div>
+              )
+            }
+            {
+              messages?.map((audio, index) => {
+                return (
+                  <div
+                    key={index + audio.sender}
                     className={
-                      audio.sender === "fam"
-                        ? "text-right mr-2 italic text-green-500"
-                        : "ml-2 italic text-blue-500"
+                      "flex flex-col " +
+                      (audio.sender === "fam" && "flex items-end")
                     }
                   >
-                    {audio.sender}
-                  </p>
+                    {/* Sender */}
+                    <div className="mt-4 ">
+                      <p
+                        className={
+                          audio.sender === "fam"
+                            ? "text-right mr-2 italic text-green-500"
+                            : "ml-2 italic text-blue-500"
+                        }
+                      >
+                        {audio.sender}
+                      </p>
 
-                  {/* Message */}
-                  <audio
-                    src={audio.blobUrl}
-                    className="appearance-none"
-                    controls
-                  />
-                </div>
-              </div>
-            );
-          })}
+                      {/* Message */}
+                      <audio
+                        src={audio.blobUrl}
+                        className="appearance-none"
+                        controls
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+          <div className=" flex justify-center items-center w-[25%]">
+            <img className="w-[500px] fixed top-[250px]" src="./images/bot2.jpg"
 
-          {messages.length === 0 && !isLoading && (
-            <div className="text-center font-light italic mt-10">
-              Send Fam a message...
-            </div>
-          )}
+              alt="Description" />
+          </div>
 
-          {isLoading && (
-            <div className="text-center font-light italic mt-10 animate-pulse">
-              Wait a few seconds...
-            </div>
-          )}
         </div>
 
         {/* Recorder */}

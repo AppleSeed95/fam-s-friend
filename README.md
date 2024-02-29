@@ -5,7 +5,7 @@
 Download the package from GitHub
 
 ```shell
-git clone https://github.com/Kyosuke95/fam-s-friend.git chatbot
+git clone https://github.com/tunki1201/voicechatbot.git chatbot
 ```
 
 ## Setup backend
@@ -146,4 +146,4 @@ http://localhost:4173/health
   - docker build --build-arg OPEN_AI_KEY=$(grep OPEN_AI_KEY .env | cut -d '=' -f2) \
              --build-arg ELEVEN_LABS_API_KEY=$(grep ELEVEN_LABS_API_KEY .env | cut -d '=' -f2) \
              -t chatbot's backend .
-
+             
