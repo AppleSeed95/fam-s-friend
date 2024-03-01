@@ -25,12 +25,12 @@ def get_recent_messages():
     elif x < 0.5:
         learn_instruction["content"] = (
             learn_instruction["content"]
-            + "Your response will include an interesting new fact about USA. "
+            + "Your response will have some light humour. "
         )
     else:
         learn_instruction["content"] = (
             learn_instruction["content"]
-            + "Your response will recommend another word to learn. "
+            + "Your response will have some light humour.  "
         )
 
     # Append instruction to message

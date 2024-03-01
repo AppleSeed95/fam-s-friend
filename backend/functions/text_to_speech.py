@@ -1,7 +1,14 @@
 import requests
+from dotenv import load_dotenv
+import os
 
-ELEVEN_LABS_API_KEY = '0ce9df4f2d402cca7355b5fbd91214c3'
+# Load .env file
+load_dotenv()
+# Retrieve Enviornment Variables
+# openai.organization = config("OPEN_AI_ORG")
+ELEVEN_LABS_API_KEY = os.getenv("ELEVEN_LABS_API_KEY")
 
+print('-----------------This is the elevenlabskey---------', ELEVEN_LABS_API_KEY)
 
 # Eleven Labs
 # Convert text to speech
@@ -23,6 +30,7 @@ def convert_text_to_speech(message):
     try:
         response = requests.post(endpoint, json=body, headers=headers)
     except Exception as e:
+        print('--------------This is an error-----------', e)
         return
 
     if response.status_code == 200:

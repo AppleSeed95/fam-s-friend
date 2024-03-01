@@ -1,12 +1,15 @@
 import openai
-
+from dotenv import load_dotenv
+import os
 from functions.database import get_recent_messages
 
-
+# Load .env file
+load_dotenv()
 # Retrieve Enviornment Variables
 # openai.organization = config("OPEN_AI_ORG")
-openai.api_key = "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"
+api_key = os.getenv("OPEN_AI_KEY")
 
+openai.api_key = api_key
 
 # Open AI - Whisper
 # Convert audio to text
@@ -16,7 +19,6 @@ def convert_audio_to_text(audio_file):
         message_text = transcript["text"]
         return message_text
     except Exception as e:
-        print("----------------we are here-----------", e)
         return None
 
 
@@ -40,4 +42,5 @@ def get_chat_response(message_input):
         message_text = response["choices"][0]["message"]["content"]
         return message_text
     except Exception as e:
+        print('---------This is an error when we are using gpt-3.5-turbo------', e)
         return

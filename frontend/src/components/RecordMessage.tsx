@@ -16,7 +16,7 @@ const RecordMessage = ({ handleStop }: Props) => {
             <button
               onMouseDown={startRecording}
               onMouseUp={stopRecording}
-              className="bg-white p-4 rounded-full"
+              className="button bg-white p-4 rounded-full"
             >
               <RecordIcon
                 classText={
@@ -28,7 +28,7 @@ const RecordMessage = ({ handleStop }: Props) => {
             </button>
             <p className="mt-2 text-white font-light">{status}</p>
           </div>
-        )
+        );
       }}
     />
   );
