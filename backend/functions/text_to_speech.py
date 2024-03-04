@@ -8,8 +8,6 @@ load_dotenv()
 # openai.organization = config("OPEN_AI_ORG")
 ELEVEN_LABS_API_KEY = os.getenv("ELEVEN_LABS_API_KEY")
 
-print('-----------------This is the elevenlabskey---------', ELEVEN_LABS_API_KEY)
-
 # Eleven Labs
 # Convert text to speech
 def convert_text_to_speech(message):
@@ -25,10 +23,13 @@ def convert_text_to_speech(message):
         "Content-Type": "application/json",
         "accept": "audio/mpeg",
     }
+    
+    print('-----------This is the message---------', message)
     endpoint = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_rachel}"
 
     try:
         response = requests.post(endpoint, json=body, headers=headers)
+        print('------------------This is an error response---------', response.json())
     except Exception as e:
         print('--------------This is an error-----------', e)
         return

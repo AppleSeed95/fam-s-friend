@@ -11,6 +11,7 @@ api_key = os.getenv("OPEN_AI_KEY")
 
 openai.api_key = api_key
 
+
 # Open AI - Whisper
 # Convert audio to text
 def convert_audio_to_text(audio_file):
@@ -19,6 +20,7 @@ def convert_audio_to_text(audio_file):
         message_text = transcript["text"]
         return message_text
     except Exception as e:
+        print("---------This is an error from openai-----------", e)
         return None
 
 
@@ -30,7 +32,7 @@ def get_chat_response(message_input):
     user_message = {
         "role": "user",
         "content": message_input
-        + "You must make funny story with input message. Remember! only funny and encourage story",
+        + "You must make funny story with input message. Remember! only funny and encourage story within 50 words",
     }
     messages.append(user_message)
     print(messages)
@@ -42,5 +44,4 @@ def get_chat_response(message_input):
         message_text = response["choices"][0]["message"]["content"]
         return message_text
     except Exception as e:
-        print('---------This is an error when we are using gpt-3.5-turbo------', e)
         return

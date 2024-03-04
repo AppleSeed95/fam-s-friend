@@ -10,7 +10,7 @@ def get_recent_messages():
     file_name = "stored_data.json"
     learn_instruction = {
         "role": "system",
-        "content": "You must respond to your input in a very interesting way. Keep responses under 50 words. ",
+        "content": "You must respond to your input in a very interesting way within 50 words.",
     }
 
     # Initialize messages
@@ -20,17 +20,16 @@ def get_recent_messages():
     x = random.uniform(0, 1)
     if x < 0.2:
         learn_instruction["content"] = (
-            learn_instruction["content"] + "Your response will have some light humour. "
+            learn_instruction["content"] + "Your response will have some light humour."
         )
     elif x < 0.5:
         learn_instruction["content"] = (
-            learn_instruction["content"]
-            + "Your response will have some light humour. "
+            learn_instruction["content"] + "Your response will have some light humour."
         )
     else:
         learn_instruction["content"] = (
             learn_instruction["content"]
-            + "Your response will have some light humour.  "
+            + "Your response will have some light humour. "
         )
 
     # Append instruction to message
