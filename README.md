@@ -5,7 +5,7 @@
 Download the package from GitHub
 
 ```shell
-git clone https://github.com/tunki1201/voicechatbot.git chatbot
+git clone https://github.com/Kyosuke95/fam-s-friend chatbot
 ```
 
 ## Setup backend
