@@ -24,12 +24,10 @@ def convert_text_to_speech(message):
         "accept": "audio/mpeg",
     }
     
-    print('-----------This is the message---------', message)
-    endpoint = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_rachel}"
+    endpoint = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_antoni}"
 
     try:
         response = requests.post(endpoint, json=body, headers=headers)
-        print('------------------This is an error response---------', response.json())
     except Exception as e:
         print('--------------This is an error-----------', e)
         return

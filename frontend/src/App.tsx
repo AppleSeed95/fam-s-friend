@@ -119,37 +119,38 @@ function App() {
               )
             }
 
-            {messages?.map((audio, index) => {
-              return (
-                <div
-                  key={index + audio.sender}
-                  className={
-                    "flex flex-col " +
-                    (audio.sender === "fam" && "flex items-end")
-                  }
-                >
-                  {/* Sender */}
-                  <div className="mt-4 ">
-                    <p
-                      className={
-                        audio.sender === "fam"
-                          ? "text-right mr-2 italic text-green-500"
-                          : "ml-2 italic text-blue-500"
-                      }
-                    >
-                      {audio.sender}
-                    </p>
+            {
+              messages?.map((audio, index) => {
+                return (
+                  <div
+                    key={index + audio.sender}
+                    className={
+                      "flex flex-col " +
+                      (audio.sender === "fam" && "flex items-end")
+                    }
+                  >
+                    {/* Sender */}
+                    <div className="mt-4 ">
+                      <p
+                        className={
+                          audio.sender === "fam"
+                            ? "text-right mr-2 italic text-green-500"
+                            : "ml-2 italic text-blue-500"
+                        }
+                      >
+                        {audio.sender}
+                      </p>
 
-                    {/* Message */}
-                    <audio
-                      src={audio?.blobUrl}
-                      className="appearance-none"
-                      controls
-                    />
+                      {/* Message */}
+                      <audio
+                        src={audio?.blobUrl}
+                        className="appearance-none"
+                        controls
+                      />
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
           <div className=" flex justify-center items-center w-[25%]">
             {/* <img
