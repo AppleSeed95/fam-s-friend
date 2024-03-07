@@ -10,7 +10,7 @@ def get_recent_messages():
     file_name = "stored_data.json"
     learn_instruction = {
         "role": "system",
-        "content": "You must respond to your input in a very interesting way within 50 words.",
+        "content": "You must respond to user's input in a very interesting way within 50 words. While generating response, use same language as user's input message.",
     }
 
     # Initialize messages

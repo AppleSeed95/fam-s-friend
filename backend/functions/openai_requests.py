@@ -18,6 +18,7 @@ def convert_audio_to_text(audio_file):
     try:
         transcript = openai.Audio.transcribe("whisper-1", audio_file)
         message_text = transcript["text"]
+        print("----------This is the gpt responese---------", message_text)
         return message_text
     except Exception as e:
         print("---------This is an error from openai-----------", e)
@@ -32,7 +33,7 @@ def get_chat_response(message_input):
     user_message = {
         "role": "user",
         "content": message_input
-        + "You must make funny story with input message. Remember! only funny and encourage story within 50 words",
+        # + "You must make funny story with input message. Remember! only funny and encourage story within 50 words. Please make response using same language as message input",
     }
     messages.append(user_message)
     print(messages)

@@ -92,6 +92,7 @@ function Title({ setMessages }: Props) {
             />
           </svg>
         </button>
+        {/* <LanguageSwitcherButton /> */}
       </div>
     </div>
   );

@@ -28,8 +28,9 @@ def convert_text_to_speech(message):
 
     try:
         response = requests.post(endpoint, json=body, headers=headers)
+        print('---------------This is the elevenlabs-', response.json())
     except Exception as e:
-        print('--------------This is an error-----------', e)
+        print('---------------This is an error------', e)
         return
 
     if response.status_code == 200:
