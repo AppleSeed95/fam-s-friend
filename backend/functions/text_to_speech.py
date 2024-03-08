@@ -24,7 +24,7 @@ def convert_text_to_speech(message):
         "accept": "audio/mpeg",
     }
     
-    endpoint = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_antoni}"
+    endpoint = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_rachel}"
 
     try:
         response = requests.post(endpoint, json=body, headers=headers)

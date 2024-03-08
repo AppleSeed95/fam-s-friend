@@ -58,7 +58,7 @@ function Title({ setMessages }: Props) {
     setIsResetting(false);
   };
   return (
-    <div className="flex justify-between items-center  p-[20px] text-white font-bold shadow title dark:bg-[#241e33] dark:text-white">
+    <div className="flex justify-between items-center  p-[20px] text-white font-bold shadow title dark:bg-[#012e42] dark:text-white">
       <div className="italic">fam</div>
       <div className="flex items-center justify-center">
         <div className="w-max">
@@ -92,7 +92,6 @@ function Title({ setMessages }: Props) {
             />
           </svg>
         </button>
-        {/* <LanguageSwitcherButton /> */}
       </div>
     </div>
   );

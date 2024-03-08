@@ -1,6 +1,9 @@
 .App {
   text-align: center;
 }
+*{
+	transition-duration: 0.5s;
+}
 body{
   overflow: hidden;
 }
@@ -75,11 +78,16 @@ body{
     transform: rotate(0deg);
   }
 }
-
+@keyframes leftHide {
+	0%   {left:0px;}
+	100% {left:-500px;}
+  }
 .bot {
   animation: rotate 2s linear infinite;
   transform-origin: bottom center;
-
+}
+.leftHide{
+	animation: leftHide 1s linear infinite;
 }
 @-webkit-keyframes animatetop {
 	from {
@@ -147,7 +155,7 @@ body{
 	list-style: none;
 	width: 20px;
 	height: 20px;
-	background: rgba(255, 255, 255, 0.496);
+	background: rgba(255, 255, 255, 0.2);
 	animation: animate 25s linear infinite;
 	bottom: -150px;
 }

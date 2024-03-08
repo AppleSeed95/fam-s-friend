@@ -60,6 +60,7 @@ function App() {
   return (
     <div className="h-screen overflow-y-hidden">
       <img src="/images/bg.jpg" alt="bg" className="bg" />
+      <div className="absolute w-full opacity-[0] z-[-1] h-full bg-black dark:opacity-[0.7]"></div>
       {/* Title */}
       <Title setMessages={setMessages} />
       <div className="area">
@@ -82,10 +83,15 @@ function App() {
       <div className="flex flex-col justify-between h-full overflow-y-auto pb-96">
         {/* Conversation */}
         <div className="px-5 flex">
-          <div className=" flex justify-center items-center w-[25%]">
+          <div className="flex justify-center items-center w-[25%]">
             <img
-              className="bot w-[350px] fixed top-[300px] "
+              className="bot dark:opacity-[0] w-[350px] absolute top-[300px] "
               src="./images/bot.png"
+              alt="Description"
+            />
+            <img
+              className="bot dark:opacity-[1] opacity-[0] w-[350px] absolute top-[300px] "
+              src="./images/bot_dark.png"
               alt="Description"
             />
           </div>
@@ -109,48 +115,45 @@ function App() {
               </div>
             )}
 
-            {
-              isLoading && (
-                <div className="flex space-x-2 justify-center items-center dark:invert mt-1">
-                  <div className="h-4 w-4 bg-[#072e40] rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                  <div className="h-4 w-4 bg-[#072e40] rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                  <div className="h-4 w-4 bg-[#072e40] rounded-full animate-bounce"></div>
-                </div>
-              )
-            }
+            {isLoading && (
+              <div className="flex space-x-2 justify-center items-center dark:invert mt-1">
+                <div className="h-4 w-4 bg-[#072e40] rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                <div className="h-4 w-4 bg-[#072e40] rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                <div className="h-4 w-4 bg-[#072e40] rounded-full animate-bounce"></div>
+              </div>
+            )}
 
-            {
-              messages?.map((audio, index) => {
-                return (
-                  <div
-                    key={index + audio.sender}
-                    className={
-                      "flex flex-col " +
-                      (audio.sender === "fam" && "flex items-end")
-                    }
-                  >
-                    {/* Sender */}
-                    <div className="mt-4 ">
-                      <p
-                        className={
-                          audio.sender === "fam"
-                            ? "text-right mr-2 italic text-green-500"
-                            : "ml-2 italic text-blue-500"
-                        }
-                      >
-                        {audio.sender}
-                      </p>
+            {messages?.map((audio, index) => {
+              return (
+                <div
+                  key={index + audio.sender}
+                  className={
+                    "flex flex-col " +
+                    (audio.sender === "fam" && "flex items-end")
+                  }
+                >
+                  {/* Sender */}
+                  <div className="mt-4 ">
+                    <p
+                      className={
+                        audio.sender === "fam"
+                          ? "text-right mr-2 italic text-green-500"
+                          : "ml-2 italic text-blue-500"
+                      }
+                    >
+                      {audio.sender}
+                    </p>
 
-                      {/* Message */}
-                      <audio
-                        src={audio?.blobUrl}
-                        className="appearance-none"
-                        controls
-                      />
-                    </div>
+                    {/* Message */}
+                    <audio
+                      src={audio?.blobUrl}
+                      className="appearance-none"
+                      controls
+                    />
                   </div>
-                );
-              })}
+                </div>
+              );
+            })}
           </div>
           <div className=" flex justify-center items-center w-[25%]">
             {/* <img

@@ -16,13 +16,13 @@ const RecordMessage = ({ handleStop }: Props) => {
             <button
               onMouseDown={startRecording}
               onMouseUp={stopRecording}
-              className="button bg-white p-4 rounded-full"
+              className="button dark:bg-[#024361] bg-white p-4 rounded-full"
             >
               <RecordIcon
                 classText={
                   status === "recording"
                     ? "animate-pulse text-red-500"
-                    : "text-sky-500"
+                    : "text-sky-500 dark:text-white"
                 }
               />
             </button>
