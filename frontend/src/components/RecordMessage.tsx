@@ -26,7 +26,7 @@ const RecordMessage = ({ handleStop }: Props) => {
                 }
               />
             </button>
-            <p className="mt-2 text-white font-light">{status}</p>
+            <p className="mt-2 dark:text-white font-light">{status}</p>
           </div>
         );
       }}

@@ -59,7 +59,7 @@ function App() {
 
   return (
     <div className="h-screen overflow-y-hidden">
-      <img src="/images/bg.jpg" alt="bg" className="bg" />
+      {/* <img src="/images/bg.jpg" alt="bg" className="bg" /> */}
       <div className="absolute w-full opacity-[0] z-[-1] h-full bg-black dark:opacity-[0.7]"></div>
       {/* Title */}
       <Title setMessages={setMessages} />
@@ -109,51 +109,56 @@ function App() {
               className="text-center flex items-center mx-auto w-[350px]"
             /> */}
 
-            {messages.length === 0 && !isLoading && (
-              <div className="text-center text-gray font-light italic mt-10">
-                Send Fam a message...
-              </div>
-            )}
-
-            {isLoading && (
-              <div className="flex space-x-2 justify-center items-center dark:invert mt-1">
-                <div className="h-4 w-4 bg-[#072e40] rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                <div className="h-4 w-4 bg-[#072e40] rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                <div className="h-4 w-4 bg-[#072e40] rounded-full animate-bounce"></div>
-              </div>
-            )}
-
-            {messages?.map((audio, index) => {
-              return (
-                <div
-                  key={index + audio.sender}
-                  className={
-                    "flex flex-col " +
-                    (audio.sender === "fam" && "flex items-end")
-                  }
-                >
-                  {/* Sender */}
-                  <div className="mt-4 ">
-                    <p
-                      className={
-                        audio.sender === "fam"
-                          ? "text-right mr-2 italic text-green-500"
-                          : "ml-2 italic text-blue-500"
-                      }
-                    >
-                      {audio.sender}
-                    </p>
-
-                    {/* Message */}
-                    <audio
-                      src={audio?.blobUrl}
-                      className="appearance-none"
-                      controls
-                    />
-                  </div>
+            {
+              messages.length === 0 && !isLoading && (
+                <div className="text-center text-gray font-light italic mt-10 dark:text-white">
+                  Send Fam a message...
                 </div>
-              );
-            })}
+              )
+            }
+
+            {
+              isLoading && (
+                <div className="flex space-x-2 justify-center items-center dark:invert mt-1">
+                  <div className="h-4 w-4 bg-[#072e40] rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                  <div className="h-4 w-4 bg-[#072e40] rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                  <div className="h-4 w-4 bg-[#072e40] rounded-full animate-bounce"></div>
+                </div>
+              )
+            }
+
+            {
+              messages?.map((audio, index) => {
+                return (
+                  <div
+                    key={index + audio.sender}
+                    className={
+                      "flex flex-col " +
+                      (audio.sender === "fam" && "flex items-end")
+                    }
+                  >
+                    {/* Sender */}
+                    <div className="mt-4 ">
+                      <p
+                        className={
+                          audio.sender === "fam"
+                            ? "text-right mr-2 italic text-green-500"
+                            : "ml-2 italic text-blue-500"
+                        }
+                      >
+                        {audio.sender}
+                      </p>
+
+                      {/* Message */}
+                      <audio
+                        src={audio?.blobUrl}
+                        className="appearance-none"
+                        controls
+                      />
+                    </div>
+                  </div>
+                );
+              })}
           </div>
           <div className=" flex justify-center items-center w-[25%]">
             {/* <img
