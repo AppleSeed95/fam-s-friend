@@ -89,11 +89,6 @@ function App() {
               src="./images/bot.png"
               alt="Description"
             />
-            <img
-              className="bot dark:opacity-[1] opacity-[0] w-[350px] absolute top-[300px] "
-              src="./images/bot_dark.png"
-              alt="Description"
-            />
           </div>
           <div className="flex items-center justify-center">
             {/* <div className="w-max">
