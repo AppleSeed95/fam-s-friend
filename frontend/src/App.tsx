@@ -10,7 +10,8 @@ function App() {
   const [messages, setMessages] = useState<any[]>([]);
 
   const [text, setText] = useState('');
-  console.log('--------------------', text)
+  const [generatedResponse, setGeneratedResponse] = useState('');
+  console.log('--------------------', text, generatedResponse)
 
   const createBlobURL = (data: any) => {
     const blob = new Blob([data], { type: "audio/mpeg" });
@@ -55,8 +56,37 @@ function App() {
             result += decoder.decode(value, { stream: true });
           }
 
+          // Make a request to OpenAI API to generate a response
+          const responseFromOpenAI = await fetch('https://api.openai.com/v1/engines/davinci/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${OPEN_AI_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              prompt: result,
+              max_tokens: 100
+            })
+          });
+
+          const readerOpenAI = responseFromOpenAI.body?.getReader();
+          if (!readerOpenAI) {
+            throw new Error('Failed to read response body from OpenAI');
+          }
+
+          let generatedResponse = '';
+
+          while (true) {
+            const { done, value } = await readerOpenAI.read();
+            if (done) break;
+            generatedResponse += decoder.decode(value, { stream: true });
+          }
+
+          console.log('Generated response:', generatedResponse);
+
           setIsLoading(false);
           setText(result);
+          setGeneratedResponse(generatedResponse);
         } catch (error) {
 
           setIsLoading(false);
