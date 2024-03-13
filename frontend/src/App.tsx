@@ -18,6 +18,8 @@ function App() {
     return window.URL.createObjectURL(blob);
   };
 
+  const model = 'whisper-1'
+
   const handleStop = async (blobUrl: string) => {
     setIsLoading(true);
 
@@ -34,10 +36,11 @@ function App() {
         formData.append("file", blob, "myFile.wav");
 
         try {
-          const response = await fetch('https://api.openai.com/v1/engines/davinci/stream', {
+          const response = await fetch(`https://api.openai.com/v1/audio/${model}/transcribe`, {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${OPEN_AI_KEY}`,
+              // 'Content-Type': 'multipart/form-data' is not needed when using FormData in fetch, as it sets the Content-Type automatically with the correct boundary.
             },
             body: formData
           });
@@ -57,7 +60,7 @@ function App() {
           }
 
           // Make a request to OpenAI API to generate a response
-          const responseFromOpenAI = await fetch('https://api.openai.com/v1/engines/davinci/completions', {
+          const responseFromOpenAI = await fetch(`https://api.openai.com/v1/audio/${model}/transcribe`, {
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${OPEN_AI_KEY}`,
