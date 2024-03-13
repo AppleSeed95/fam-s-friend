@@ -3,10 +3,14 @@ import "./App.css";
 import axios from "axios";
 import RecordMessage from "./components/RecordMessage";
 import Title from "./components/Title";
+import { OPEN_AI_KEY } from './env'
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<any[]>([]);
+
+  const [text, setText] = useState('');
+  console.log('--------------------', text)
 
   const createBlobURL = (data: any) => {
     const blob = new Blob([data], { type: "audio/mpeg" });
@@ -27,6 +31,37 @@ function App() {
         // Construct audio to send file
         const formData = new FormData();
         formData.append("file", blob, "myFile.wav");
+
+        try {
+          const response = await fetch('https://api.openai.com/v1/engines/davinci/stream', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${OPEN_AI_KEY}`,
+            },
+            body: formData
+          });
+
+          const reader = response.body?.getReader();
+          if (!reader) {
+            throw new Error('Failed to read response body');
+          }
+
+          let decoder = new TextDecoder();
+          let result = '';
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            result += decoder.decode(value, { stream: true });
+          }
+
+          setIsLoading(false);
+          setText(result);
+        } catch (error) {
+
+          setIsLoading(false);
+          console.error('Error converting audio to text:', error);
+        }
 
         // send form data to api endpoint
         await axios
@@ -84,11 +119,11 @@ function App() {
         {/* Conversation */}
         <div className="px-5 flex">
           <div className="flex justify-center items-center w-[25%]">
-            <img
+            {/* <img
               className="bot dark:opacity-[0] w-[350px] absolute top-[300px] "
               src="./images/bot.png"
               alt="Description"
-            />
+            /> */}
           </div>
           <div className="flex items-center justify-center">
             {/* <div className="w-max">

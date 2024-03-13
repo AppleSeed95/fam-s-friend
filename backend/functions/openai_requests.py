@@ -32,7 +32,7 @@ def get_chat_response(message_input):
     messages = get_recent_messages()
     user_message = {
         "role": "user",
-        "content": message_input
+        "content": message_input,
         # + "You must make funny story with input message. Remember! only funny and encourage story within 50 words. Please make response using same language as message input",
     }
     messages.append(user_message)
@@ -40,9 +40,33 @@ def get_chat_response(message_input):
 
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo", messages=messages
+            model="gpt-3.5-turbo",
+            messages=messages,
         )
         message_text = response["choices"][0]["message"]["content"]
         return message_text
     except Exception as e:
+        return
+
+
+# response with stream
+def get_chat_response_with_text(message_input):
+
+    messages = get_recent_messages()
+    user_message = {
+        "role": "user",
+        "content": message_input,
+        # + "You must make funny story with input message. Remember! only funny and encourage story within 50 words. Please make response using same language as message input",
+    }
+    messages.append(user_message)
+    print(messages)
+
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo", messages=messages, stream=True
+        )
+        message_text = response["choices"][0]["message"]["content"]
+        return message_text
+    except Exception as e:
+        print("---------This is an error from openai-----------", e)
         return

@@ -7,7 +7,7 @@ type Props = {
 };
 
 const greetings = [
-  "Good morning, Fam! Today is a blank canvas. paint it with colors of love and happiness.",
+  "Good morning! Today is a blank canvas. paint it with colors of love and happiness.",
   "Good afternoon! May the rest of your day be filled with moments that make you smile.",
   "Hey, friend! Wishing you a wonderful evening filled with moments that make your heart smile.",
 ];
