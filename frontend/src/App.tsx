@@ -98,7 +98,7 @@ function App() {
 
         // send form data to api endpoint
         await axios
-          .post("http://localhost:8000/post-audio", formData, {
+          .post("https://comvoice.io/post-audio", formData, {
             headers: {
               "Content-Type": "audio/mpeg",
             },

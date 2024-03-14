@@ -44,7 +44,7 @@ function Title({ setMessages }: Props) {
     setIsResetting(true);
 
     try {
-      const res = await axios.get("http://localhost:8000/reset");
+      const res = await axios.get("https://comvoice.io/reset");
 
       if (res.status === 200) {
         setMessages([]);
