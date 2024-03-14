@@ -6,7 +6,6 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-import openai
 
 # Custom Function Imports
 from functions.database import store_messages, reset_messages
