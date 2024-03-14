@@ -35,66 +35,66 @@ function App() {
         const formData = new FormData();
         formData.append("file", blob, "myFile.wav");
 
-        try {
-          const response = await fetch(`https://api.openai.com/v1/audio/${model}/transcribe`, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${OPEN_AI_KEY}`,
-              // 'Content-Type': 'multipart/form-data' is not needed when using FormData in fetch, as it sets the Content-Type automatically with the correct boundary.
-            },
-            body: formData
-          });
+        // try {
+        //   const response = await fetch(`https://api.openai.com/v1/audio/${model}/transcribe`, {
+        //     method: 'POST',
+        //     headers: {
+        //       'Authorization': `Bearer ${OPEN_AI_KEY}`,
+        //       // 'Content-Type': 'multipart/form-data' is not needed when using FormData in fetch, as it sets the Content-Type automatically with the correct boundary.
+        //     },
+        //     body: formData
+        //   });
 
-          const reader = response.body?.getReader();
-          if (!reader) {
-            throw new Error('Failed to read response body');
-          }
+        //   const reader = response.body?.getReader();
+        //   if (!reader) {
+        //     throw new Error('Failed to read response body');
+        //   }
 
-          let decoder = new TextDecoder();
-          let result = '';
+        //   let decoder = new TextDecoder();
+        //   let result = '';
 
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            result += decoder.decode(value, { stream: true });
-          }
+        //   while (true) {
+        //     const { done, value } = await reader.read();
+        //     if (done) break;
+        //     result += decoder.decode(value, { stream: true });
+        //   }
 
-          // Make a request to OpenAI API to generate a response
-          const responseFromOpenAI = await fetch(`https://api.openai.com/v1/audio/${model}/transcribe`, {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${OPEN_AI_KEY}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              prompt: result,
-              max_tokens: 100
-            })
-          });
+        //   // Make a request to OpenAI API to generate a response
+        //   const responseFromOpenAI = await fetch(`https://api.openai.com/v1/audio/${model}/transcribe`, {
+        //     method: 'POST',
+        //     headers: {
+        //       'Authorization': `Bearer ${OPEN_AI_KEY}`,
+        //       'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //       prompt: result,
+        //       max_tokens: 100
+        //     })
+        //   });
 
-          const readerOpenAI = responseFromOpenAI.body?.getReader();
-          if (!readerOpenAI) {
-            throw new Error('Failed to read response body from OpenAI');
-          }
+        //   const readerOpenAI = responseFromOpenAI.body?.getReader();
+        //   if (!readerOpenAI) {
+        //     throw new Error('Failed to read response body from OpenAI');
+        //   }
 
-          let generatedResponse = '';
+        //   let generatedResponse = '';
 
-          while (true) {
-            const { done, value } = await readerOpenAI.read();
-            if (done) break;
-            generatedResponse += decoder.decode(value, { stream: true });
-          }
+        //   while (true) {
+        //     const { done, value } = await readerOpenAI.read();
+        //     if (done) break;
+        //     generatedResponse += decoder.decode(value, { stream: true });
+        //   }
 
-          console.log('Generated response:', generatedResponse);
+        //   console.log('Generated response:', generatedResponse);
 
-          setIsLoading(false);
-          setText(result);
-          setGeneratedResponse(generatedResponse);
-        } catch (error) {
+        //   setIsLoading(false);
+        //   setText(result);
+        //   setGeneratedResponse(generatedResponse);
+        // } catch (error) {
 
-          setIsLoading(false);
-          console.error('Error converting audio to text:', error);
-        }
+        //   setIsLoading(false);
+        //   console.error('Error converting audio to text:', error);
+        // }
 
         // send form data to api endpoint
         await axios
