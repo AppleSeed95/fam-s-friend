@@ -26,6 +26,8 @@ origins = [
     "http://localhost:5174",
     "http://localhost:4173",
     "http://localhost:3000",
+    "https://comvoice.io/",
+    "http://18.219.107.216:3000/",
 ]
 
 # CORS - Middleware
