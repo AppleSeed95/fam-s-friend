@@ -248,3 +248,24 @@ body{
 		border-radius: 50%;
 	}
 }
+
+
+/* scroll bar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+ 
+::-webkit-scrollbar-track {
+    background: none;
+	border-radius: 5px;
+	opacity: 0.01;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: rgb(27, 27, 27);
+    border-radius: 5px;
+}
+ 
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
