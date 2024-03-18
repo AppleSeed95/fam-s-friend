@@ -2,6 +2,9 @@ import openai
 from dotenv import load_dotenv
 import os
 from functions.database import get_recent_messages
+from fastapi.responses import FileResponse
+from io import BytesIO
+from fastapi.responses import StreamingResponse
 
 # Load .env file
 load_dotenv()
@@ -69,4 +72,23 @@ def get_chat_response_with_text(message_input):
         return message_text
     except Exception as e:
         print("---------This is an error from openai-----------", e)
+        return
+
+
+def convert_text_to_speech_with_openai(audio_file):
+    from pathlib import Path
+
+    # client = OpenAI()
+    try:
+
+        speech_file_path = Path(__file__).parent / "speech.mp3"
+        response = openai.audio.speech.create(
+            model="tts-1", voice="echo", input=audio_file
+        )
+        response.stream_to_file(speech_file_path)
+        print("-------------This is the audio file---------", speech_file_path)
+        return StreamingResponse(BytesIO(response.audio), media_type="audio/mpeg")
+
+    except Exception as e:
+        print("---------------This is an error to cov------", e)
         return

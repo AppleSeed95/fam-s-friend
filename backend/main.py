@@ -13,6 +13,7 @@ from functions.openai_requests import (
     convert_audio_to_text,
     get_chat_response,
     get_chat_response_with_text,
+    convert_text_to_speech_with_openai,
 )
 from functions.text_to_speech import convert_text_to_speech
 
@@ -78,14 +79,16 @@ async def post_audio(file: UploadFile = File(...)):
     # Store messages
     store_messages(message_decoded, chat_response)
 
-    # Convert chat response to audio
-    audio_output = convert_text_to_speech(chat_response)
+    # # Convert chat response to audio
+    # audio_output = convert_text_to_speech(chat_response)
 
-    # Guard: Ensure chat response is converted to audio
-    if not audio_output:
-        return HTTPException(
-            status_code=400, detail="Failed to get Eleven Labs audio response"
-        )
+    # # Guard: Ensure chat response is converted to audio
+    # if not audio_output:
+    #     return HTTPException(
+    #         status_code=400, detail="Failed to get Eleven Labs audio response"
+    #     )
+
+    audio_output = convert_text_to_speech_with_openai(chat_response)
 
     # Create a generator that yields chunks of data
     def iterfile():

@@ -3,7 +3,6 @@ import "./App.css";
 import axios from "axios";
 import RecordMessage from "./components/RecordMessage";
 import Title from "./components/Title";
-import { OPEN_AI_KEY } from './env'
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -97,20 +96,44 @@ function App() {
         // }
 
         // send form data to api endpoint
+        // await axios
+        //   .post("https://comvoice.io/post-audio/", formData, {
+        //     headers: {
+        //       "Content-Type": "audio/mpeg",
+        //     },
+        //     responseType: "arraybuffer", // Set the response type to handle binary data
+        //   })
+        //   .then((res: any) => {
+        //     const blob = res.data;
+        //     const audio = new Audio();
+        //     audio.src = createBlobURL(blob);
+
+        //     // Append to audio
+        //     const famMessage = { sender: "fam", blobUrl: audio.src };
+        //     messagesArr.push(famMessage);
+        //     setMessages(messagesArr);
+
+        //     // Play audio
+        //     setIsLoading(false);
+        //     audio.play();
+        //   })
+        //   .catch((err: any) => {
+        //     console.error(err);
+        //     setIsLoading(false);
+        //   });
+
         await axios
           .post("https://comvoice.io/post-audio/", formData, {
             headers: {
               "Content-Type": "audio/mpeg",
             },
-            responseType: "arraybuffer", // Set the response type to handle binary data
           })
-          .then((res: any) => {
-            const blob = res.data;
-            const audio = new Audio();
-            audio.src = createBlobURL(blob);
+          .then((res) => {
+            const filePath = res.data.audio_file_path; // Assuming the response contains the filepath
+            const audio = new Audio(filePath);
 
             // Append to audio
-            const famMessage = { sender: "fam", blobUrl: audio.src };
+            const famMessage = { sender: "fam", filePath: filePath }; // Optionally store the filepath in messagesArr
             messagesArr.push(famMessage);
             setMessages(messagesArr);
 
@@ -118,7 +141,7 @@ function App() {
             setIsLoading(false);
             audio.play();
           })
-          .catch((err: any) => {
+          .catch((err) => {
             console.error(err);
             setIsLoading(false);
           });
