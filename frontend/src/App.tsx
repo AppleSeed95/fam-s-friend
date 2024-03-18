@@ -5,19 +5,11 @@ import RecordMessage from "./components/RecordMessage";
 import Title from "./components/Title";
 
 function App() {
+
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<any[]>([]);
-
-  const [text, setText] = useState('');
-  const [generatedResponse, setGeneratedResponse] = useState('');
-  console.log('--------------------', text, generatedResponse)
-
-  const createBlobURL = (data: any) => {
-    const blob = new Blob([data], { type: "audio/mpeg" });
-    return window.URL.createObjectURL(blob);
-  };
-
-  const model = 'whisper-1'
+  const [transcripts, setTranscripts] = useState<string[]>([])
+  const [currentTranscript, setCurretnTranscript] = useState<string>('')
 
   const handleStop = async (blobUrl: string) => {
     setIsLoading(true);
@@ -25,7 +17,11 @@ function App() {
     // Append recorded message to messages
     const myMessage = { sender: "me", blobUrl };
     const messagesArr = [...messages, myMessage];
+    setMessages(messagesArr);
 
+    const temp = [...transcripts, currentTranscript]
+    setTranscripts(temp);
+    console.log('------------This is the response------', transcripts, temp, transcripts.length)
     // convert blob url to blob object
     fetch(blobUrl)
       .then((res) => res.blob())
@@ -129,6 +125,7 @@ function App() {
             },
           })
           .then((res) => {
+
             const filePath = res.data.audio_file_path; // Assuming the response contains the filepath
             const audio = new Audio(filePath);
 
@@ -215,6 +212,9 @@ function App() {
 
             {
               messages?.map((audio, index) => {
+
+                console.log('111111111111111', index, transcripts, transcripts.length, messages.length, currentTranscript)
+
                 return (
                   <div
                     key={index + audio.sender}
@@ -241,6 +241,27 @@ function App() {
                         className="appearance-none"
                         controls
                       />
+
+                      {
+                        audio.sender !== "fam" && (
+                          (
+                            index * 2 === messages.length || transcripts.length < 2 ?
+                              <span className="ml-2 italic text-green-500">
+                                {currentTranscript}
+                              </span> : <span className="ml-2 italic text-green-500">
+                                {transcripts[(index / 2) + 1]}
+                              </span>
+                          )
+                        )
+                        // audio.sender !== "fam" && (
+                        //   <div className="flex flex-col">
+                        //     <span className="ml-2 italic text-green-500">previous:{transcripts[index / 2]}</span>
+                        //     <span className="ml-2 italic text-green-500">current:{currentTranscript}</span>
+                        //   </div>
+                        // )
+
+                      }
+
                     </div>
                   </div>
                 );
@@ -258,7 +279,7 @@ function App() {
         {/* Recorder */}
         <div className="footer fixed bottom-0 py-6 px-[10px] mx-auto block text-center">
           <div>
-            <RecordMessage handleStop={handleStop} />
+            <RecordMessage handleStop={handleStop} isLoading={isLoading} setCurretnTranscript={setCurretnTranscript} />
           </div>
         </div>
       </div>

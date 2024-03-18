@@ -57,6 +57,7 @@ function Title({ setMessages }: Props) {
 
     setIsResetting(false);
   };
+
   return (
     <div className="flex justify-between items-center  p-[20px] text-white font-bold shadow title dark:bg-[#012e42] dark:text-white">
       <div className="italic">fam</div>
